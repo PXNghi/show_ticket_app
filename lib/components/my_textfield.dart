@@ -4,12 +4,16 @@ import 'package:show_ticket_app/ui_values.dart';
 class MyTextField extends StatefulWidget {
   final String label;
   final bool isPassword;
+  final String? mySuffixIcon;
+  final VoidCallback? onTapSuffixIcon;
   final TextEditingController? textController;
   const MyTextField({
     super.key,
     required this.label,
     this.isPassword = false,
     this.textController,
+    this.mySuffixIcon,
+    this.onTapSuffixIcon,
   });
 
   @override
@@ -49,7 +53,17 @@ class _MyTextFieldState extends State<MyTextField> {
                       ),
                     ),
                   )
-                : null,
+                : widget.mySuffixIcon != null
+                    ? Padding(
+                        padding: const EdgeInsets.only(right: 10),
+                        child: GestureDetector(
+                          onTap: widget.onTapSuffixIcon == null
+                              ? () {}
+                              : widget.onTapSuffixIcon!,
+                          child: Image.asset(widget.mySuffixIcon!),
+                        ),
+                      )
+                    : null,
             enabled: true,
             filled: true,
             fillColor: Colors.white,

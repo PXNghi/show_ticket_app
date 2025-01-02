@@ -9,6 +9,7 @@ const appleImg = "assets/images/apple_logo.png";
 // icons url
 const eyeOpenIcon = "assets/icons/eye-open.png";
 const eyeClosedIcon = "assets/icons/eye-closed.png";
+const refreshIcon = "assets/icons/refresh-icon.png";
 
 // color url
 const backgroundColor = Color(0xff181818);
@@ -36,3 +37,9 @@ const forgetPassword = "Quên mật khẩu?";
 const loginWith = "Hoặc đăng nhập bằng";
 const haveAccount = "Đã có tài khoản? ";
 const confirmedPassword = "Xác nhận mật khẩu";
+const forgetPasswordUpper = "QUÊN MẬT KHẨU";
+const otpText = "Mã xác nhận";
+const continueText = "Tiếp tục";
+const resetPassword = "ĐỔI MẬT KHẨU";
+const newPassword = "Mật khẩu mới";
+const confirm = "Xác nhận";

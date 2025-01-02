@@ -10,10 +10,15 @@ class LoginPage extends StatefulWidget {
   State<LoginPage> createState() => _LoginPageState();
 }
 
+enum BottomSheetType { signIn, signUp, forgetPass, resetPass }
+
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmedPasswordController = TextEditingController();
+  final TextEditingController confirmedPasswordController =
+      TextEditingController();
+  final TextEditingController otpController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -40,7 +45,7 @@ class _LoginPageState extends State<LoginPage> {
                 height: defaultButtonHeight,
                 textSize: defaultTextSize,
                 text: loginTextUpper,
-                onTap: () => showBottomDialog(context, true),
+                onTap: () => showBottomDialog(context, BottomSheetType.signIn),
               ),
             ),
             Padding(
@@ -51,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
                 textSize: defaultTextSize,
                 text: signUpTextUpper,
                 isFilledButton: false,
-                onTap: () => showBottomDialog(context, false),
+                onTap: () => showBottomDialog(context, BottomSheetType.signUp),
               ),
             )
           ],
@@ -60,15 +65,15 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future<dynamic> showBottomDialog(BuildContext context, bool isSignInDialog) {
+  Future<dynamic> showBottomDialog(BuildContext context, BottomSheetType type) {
     return showModalBottomSheet(
       isScrollControlled: true,
       context: context,
       backgroundColor: Colors.transparent,
       builder: (context) => DraggableScrollableSheet(
-        initialChildSize: 0.72,
+        initialChildSize: 0.75,
         maxChildSize: 1,
-        minChildSize: 0.72,
+        minChildSize: 0.3,
         expand: false,
         builder: (context, scrollController) => Container(
           decoration: const BoxDecoration(
@@ -78,9 +83,16 @@ class _LoginPageState extends State<LoginPage> {
             ),
             color: bottomSheetColor,
           ),
-          child: isSignInDialog
-              ? showSignInDialog(scrollController)
-              : showSignUpDialog(scrollController),
+          child: [
+            if (type == BottomSheetType.signIn)
+              showSignInDialog(scrollController),
+            if (type == BottomSheetType.signUp)
+              showSignUpDialog(scrollController),
+            if (type == BottomSheetType.forgetPass)
+              showForgetPasswordDialog(context, scrollController),
+            if (type == BottomSheetType.resetPass)
+              showResetPasswordDialog(context, scrollController)
+          ].first,
         ),
       ),
     );
@@ -95,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
           const Center(
             child: Padding(
               padding: EdgeInsets.only(
-                top: defaultPadding,
+                top: 24.0,
                 bottom: 4.0,
               ),
               child: Text(
@@ -121,7 +133,7 @@ class _LoginPageState extends State<LoginPage> {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).pop();
-                  showBottomDialog(context, false);
+                  showBottomDialog(context, BottomSheetType.signUp);
                 },
                 child: const Text(
                   registerNow,
@@ -143,7 +155,10 @@ class _LoginPageState extends State<LoginPage> {
           ),
           const SizedBox(height: 8.0),
           GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.of(context).pop();
+              showBottomDialog(context, BottomSheetType.forgetPass);
+            },
             child: const Text(
               forgetPassword,
               style: TextStyle(
@@ -229,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
           const Center(
             child: Padding(
               padding: EdgeInsets.only(
-                top: defaultPadding,
+                top: 24.0,
                 bottom: 4.0,
               ),
               child: Text(
@@ -255,7 +270,7 @@ class _LoginPageState extends State<LoginPage> {
               GestureDetector(
                 onTap: () {
                   Navigator.of(context).pop();
-                  showBottomDialog(context, true);
+                  showBottomDialog(context, BottomSheetType.signIn);
                 },
                 child: const Text(
                   loginText,
@@ -291,6 +306,229 @@ class _LoginPageState extends State<LoginPage> {
             isFilledButton: true,
           ),
           const SizedBox(height: 24.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Container(
+                  height: 1,
+                  width: double.infinity,
+                  color: grayContentColor,
+                ),
+              ),
+              const SizedBox(width: 8.0),
+              const Text(
+                loginWith,
+                style: TextStyle(
+                  color: grayContentColor,
+                  fontSize: defaultTextSize,
+                ),
+              ),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  width: double.infinity,
+                  color: grayContentColor,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: defaultPadding),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 50,
+                height: 50,
+                child: Image.asset(fbImg),
+              ),
+              const SizedBox(width: defaultPadding),
+              SizedBox(
+                width: 50,
+                height: 50,
+                child: Image.asset(googleImg),
+              ),
+              const SizedBox(width: defaultPadding),
+              SizedBox(
+                width: 50,
+                height: 50,
+                child: Image.asset(appleImg),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget showForgetPasswordDialog(
+      BuildContext context, ScrollController scrollController) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ListView(
+        controller: scrollController,
+        children: [
+          const Center(
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: 24.0,
+                bottom: 4.0,
+              ),
+              child: Text(
+                forgetPasswordUpper,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                noAccount,
+                style: TextStyle(
+                  fontSize: defaultTextSize,
+                  color: grayContentColor,
+                ),
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  showBottomDialog(context, BottomSheetType.signUp);
+                },
+                child: const Text(
+                  registerNow,
+                  style: TextStyle(
+                      fontSize: defaultTextSize,
+                      color: primaryColor,
+                      fontWeight: FontWeight.w600),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: defaultPadding),
+          MyTextField(label: "Email", textController: emailController),
+          const SizedBox(height: defaultPadding),
+          MyTextField(
+            label: otpText,
+            isPassword: false,
+            mySuffixIcon: refreshIcon,
+            textController: otpController,
+          ),
+          const SizedBox(height: 32.0),
+          MyButton(
+            onTap: () {
+              Navigator.of(context).pop();
+              showBottomDialog(context, BottomSheetType.resetPass);
+            },
+            width: double.infinity,
+            height: 45,
+            textSize: 14,
+            text: continueText.toUpperCase(),
+            isFilledButton: true,
+          ),
+          const SizedBox(height: 32.0),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                child: Container(
+                  height: 1,
+                  width: double.infinity,
+                  color: grayContentColor,
+                ),
+              ),
+              const SizedBox(width: 8.0),
+              const Text(
+                loginWith,
+                style: TextStyle(
+                  color: grayContentColor,
+                  fontSize: defaultTextSize,
+                ),
+              ),
+              const SizedBox(width: 8.0),
+              Expanded(
+                child: Container(
+                  height: 1,
+                  width: double.infinity,
+                  color: grayContentColor,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: defaultPadding),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SizedBox(
+                width: 50,
+                height: 50,
+                child: Image.asset(fbImg),
+              ),
+              const SizedBox(width: defaultPadding),
+              SizedBox(
+                width: 50,
+                height: 50,
+                child: Image.asset(googleImg),
+              ),
+              const SizedBox(width: defaultPadding),
+              SizedBox(
+                width: 50,
+                height: 50,
+                child: Image.asset(appleImg),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget showResetPasswordDialog(
+      BuildContext context, ScrollController scrollController) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: ListView(
+        controller: scrollController,
+        children: [
+          const Center(
+            child: Padding(
+              padding: EdgeInsets.only(
+                top: 24.0,
+                bottom: 4.0,
+              ),
+              child: Text(
+                resetPassword,
+                style: TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          const MyTextField(label: newPassword),
+          const SizedBox(height: defaultPadding),
+          const MyTextField(
+            label: confirmedPassword,
+            isPassword: false,
+          ),
+          const SizedBox(height: 32.0),
+          MyButton(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            width: double.infinity,
+            height: 45,
+            textSize: 14,
+            text: confirm.toUpperCase(),
+            isFilledButton: true,
+          ),
+          const SizedBox(height: 32.0),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
