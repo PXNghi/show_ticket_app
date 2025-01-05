@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:show_ticket_app/components/my_button.dart';
 import 'package:show_ticket_app/components/my_textfield.dart';
+import 'package:show_ticket_app/screens/main/home_page.dart';
 import 'package:show_ticket_app/ui_values.dart';
 
 class LoginPage extends StatefulWidget {
@@ -15,6 +18,9 @@ enum BottomSheetType { signIn, signUp, forgetPass, resetPass }
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController emailRegisterController = TextEditingController();
+  final TextEditingController passwordRegisterController =
+      TextEditingController();
   final TextEditingController confirmedPasswordController =
       TextEditingController();
   final TextEditingController otpController = TextEditingController();
@@ -171,7 +177,28 @@ class _LoginPageState extends State<LoginPage> {
           ),
           const SizedBox(height: defaultPadding),
           MyButton(
-            onTap: () {},
+            onTap: () async {
+              try {
+                await FirebaseAuth.instance
+                    .signInWithEmailAndPassword(
+                  email: emailController.text,
+                  password: passwordController.text,
+                )
+                    .then((value) {
+                  SharedPreferences.getInstance().then((prefs) {
+                    prefs.setString('user_id', value.user!.uid);
+                  });
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const HomePage()));
+                });
+              } on FirebaseAuthException catch (e) {
+                if (e.code == 'user-not-found') {
+                  print('No user found for that email.');
+                } else if (e.code == 'wrong-password') {
+                  print('Wrong password provided for that user.');
+                }
+              }
+            },
             width: double.infinity,
             height: 45,
             textSize: 14,
@@ -283,12 +310,15 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
           const SizedBox(height: defaultPadding),
-          MyTextField(label: "Email", textController: emailController),
+          MyTextField(
+            label: "Email",
+            textController: emailRegisterController,
+          ),
           const SizedBox(height: defaultPadding),
           MyTextField(
             label: password,
             isPassword: true,
-            textController: passwordController,
+            textController: passwordRegisterController,
           ),
           const SizedBox(height: defaultPadding),
           MyTextField(
@@ -298,7 +328,28 @@ class _LoginPageState extends State<LoginPage> {
           ),
           const SizedBox(height: 32.0),
           MyButton(
-            onTap: () {},
+            onTap: () {
+              if (confirmedPasswordController.text ==
+                  passwordRegisterController.text) {
+                FirebaseAuth.instance.createUserWithEmailAndPassword(
+                  email: emailRegisterController.text,
+                  password: passwordRegisterController.text,
+                ).then((value) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Account created successfully'),
+                    ),
+                  );
+                  Navigator.of(context).pop();
+                });
+              } else {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                    content: Text('Password does not match'),
+                  ),
+                );
+              }
+            },
             width: double.infinity,
             height: 45,
             textSize: 14,

@@ -5,11 +5,13 @@ const logoImg = "assets/images/logo.png";
 const fbImg = "assets/images/facebook_logo.png";
 const googleImg = "assets/images/google_logo.png";
 const appleImg = "assets/images/apple_logo.png";
+const homeLogoImg = "assets/images/home_logo.png";
 
 // icons url
 const eyeOpenIcon = "assets/icons/eye-open.png";
 const eyeClosedIcon = "assets/icons/eye-closed.png";
 const refreshIcon = "assets/icons/refresh-icon.png";
+const searchIcon = "assets/icons/search_icon.png";
 
 // color url
 const backgroundColor = Color(0xff181818);
@@ -17,6 +19,7 @@ const primaryColor = Color(0xff7657EA);
 const bottomSheetColor = Color(0xff363636);
 const grayContentColor = Color(0xffD8D8D8);
 const colorTextBox = Color(0xffF2F2F2);
+const grey46Color = Color(0xff464646);
 
 // figures
 const buttonRadius = BorderRadius.all(Radius.circular(10.0));
@@ -43,3 +46,6 @@ const continueText = "Tiếp tục";
 const resetPassword = "ĐỔI MẬT KHẨU";
 const newPassword = "Mật khẩu mới";
 const confirm = "Xác nhận";
+const outstandingEvents = "Sự Kiện Nổi Bật";
+const seeAll = "Xem Tất Cả";
+const concert = "Nhạc hội";
