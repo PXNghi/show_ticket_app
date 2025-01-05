@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "892675920747",
+    "project_id": "show-ticket-app",
+    "storage_bucket": "show-ticket-app.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892675920747:android:45ec14839d155af1ccb22e",
+        "android_client_info": {
+          "package_name": "com.example.show_ticket_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdVoPWBneAGEfaSxfgGt2PFMAa9TM3AV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:892675920747:android:307b8fd70ea2ad17ccb22e",
+        "android_client_info": {
+          "package_name": "com.example.showticketapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdVoPWBneAGEfaSxfgGt2PFMAa9TM3AV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
