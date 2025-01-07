@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:show_ticket_app/components/my_icon_button.dart';
 import 'package:show_ticket_app/ui_values.dart';
+import 'package:show_ticket_app/widgets/event_home_item.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -36,8 +37,10 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(defaultPadding, 0, 0, defaultPadding),
+        padding:
+            const EdgeInsets.fromLTRB(defaultPadding, 0, 0, defaultPadding),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
@@ -47,7 +50,8 @@ class _HomePageState extends State<HomePage> {
                       (e) => Padding(
                         padding: const EdgeInsets.only(right: defaultPadding),
                         child: ClipRRect(
-                          borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(15.0)),
                           child: Image.asset(
                             e,
                             width: size.width,
@@ -59,7 +63,7 @@ class _HomePageState extends State<HomePage> {
                     .toList(),
                 options: CarouselOptions(
                   height: size.height * 0.28,
-                  aspectRatio: 16/9,
+                  aspectRatio: 16 / 9,
                   viewportFraction: 1.0,
                   enableInfiniteScroll: true,
                   autoPlay: true,
@@ -75,15 +79,21 @@ class _HomePageState extends State<HomePage> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: bannerImageList.asMap().entries.map((e) => Container(
-                width: 8.0,
-                height: 8.0,
-                margin: const EdgeInsets.symmetric(horizontal: 4.0),
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: _currentBannerIndex == e.key ? primaryColor : Colors.grey,
-                ),
-              )).toList(),
+              children: bannerImageList
+                  .asMap()
+                  .entries
+                  .map((e) => Container(
+                        width: 8.0,
+                        height: 8.0,
+                        margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _currentBannerIndex == e.key
+                              ? primaryColor
+                              : Colors.grey,
+                        ),
+                      ))
+                  .toList(),
             ),
             const SizedBox(height: defaultPadding),
             Row(
@@ -110,7 +120,24 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ],
-            )
+            ),
+            const SizedBox(height: defaultPadding),
+            SizedBox(
+              height: size.height * 0.3,
+              child: ListView.builder(
+                itemCount: bannerImageList.length,
+                scrollDirection: Axis.horizontal,
+                itemBuilder: (context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(right: defaultPadding),
+                    child: EventHomeItem(
+                      size: size,
+                    ),
+                  );
+                },
+              ),
+            ),
+            Expanded(child: Container())
           ],
         ),
       ),
