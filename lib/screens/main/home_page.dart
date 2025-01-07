@@ -1,3 +1,4 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:show_ticket_app/components/my_icon_button.dart';
 import 'package:show_ticket_app/ui_values.dart';
@@ -10,8 +11,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int _currentBannerIndex = 0;
   @override
   Widget build(BuildContext context) {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBar(
@@ -36,17 +39,62 @@ class _HomePageState extends State<HomePage> {
         padding: const EdgeInsets.fromLTRB(defaultPadding, 0, 0, defaultPadding),
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0, bottom: 20.0),
+              child: CarouselSlider(
+                items: bannerImageList
+                    .map(
+                      (e) => Padding(
+                        padding: const EdgeInsets.only(right: defaultPadding),
+                        child: ClipRRect(
+                          borderRadius: const BorderRadius.all(Radius.circular(15.0)),
+                          child: Image.asset(
+                            e,
+                            width: size.width,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    )
+                    .toList(),
+                options: CarouselOptions(
+                  height: size.height * 0.28,
+                  aspectRatio: 16/9,
+                  viewportFraction: 1.0,
+                  enableInfiniteScroll: true,
+                  autoPlay: true,
+                  autoPlayInterval: const Duration(seconds: 5),
+                  autoPlayAnimationDuration: const Duration(milliseconds: 800),
+                  onPageChanged: (index, reason) {
+                    setState(() {
+                      _currentBannerIndex = index;
+                    });
+                  },
+                ),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: bannerImageList.asMap().entries.map((e) => Container(
+                width: 8.0,
+                height: 8.0,
+                margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: _currentBannerIndex == e.key ? primaryColor : Colors.grey,
+                ),
+              )).toList(),
+            ),
+            const SizedBox(height: defaultPadding),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Text(
                   outstandingEvents,
                   style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.w600
-                  ),
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(right: defaultPadding),
@@ -55,10 +103,9 @@ class _HomePageState extends State<HomePage> {
                     child: const Text(
                       seeAll,
                       style: TextStyle(
-                        fontSize: 14,
-                        color: primaryColor,
-                        fontWeight: FontWeight.w600
-                      ),
+                          fontSize: 14,
+                          color: primaryColor,
+                          fontWeight: FontWeight.w600),
                     ),
                   ),
                 ),

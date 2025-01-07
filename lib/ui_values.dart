@@ -6,6 +6,11 @@ const fbImg = "assets/images/facebook_logo.png";
 const googleImg = "assets/images/google_logo.png";
 const appleImg = "assets/images/apple_logo.png";
 const homeLogoImg = "assets/images/home_logo.png";
+const erasTourImg = "assets/images/eras_tour.jpg";
+const djSnakeFesImg = "assets/images/dj_snake_festival.jpg";
+const bornPinkConcertImg = "assets/images/born_pink_concert.png";
+const victoriaSecretImg = "assets/images/victoria_secret_show.jpg";
+const worldDjFesImg = "assets/images/world_dj_festival.jpg";
 
 // icons url
 const eyeOpenIcon = "assets/icons/eye-open.png";
@@ -49,3 +54,14 @@ const confirm = "Xác nhận";
 const outstandingEvents = "Sự Kiện Nổi Bật";
 const seeAll = "Xem Tất Cả";
 const concert = "Nhạc hội";
+
+// fake data
+
+// banner image list
+const bannerImageList = [
+  erasTourImg,
+  djSnakeFesImg,
+  bornPinkConcertImg,
+  victoriaSecretImg,
+  worldDjFesImg
+];
