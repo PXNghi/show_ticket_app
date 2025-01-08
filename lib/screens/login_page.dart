@@ -87,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
               topLeft: Radius.circular(16.0),
               topRight: Radius.circular(16.0),
             ),
-            color: bottomSheetColor,
+            color: grey36Color,
           ),
           child: [
             if (type == BottomSheetType.signIn)

@@ -23,19 +23,20 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: FutureBuilder(
-        future: SharedPreferences.getInstance(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final prefs = snapshot.data as SharedPreferences;
-            final idUser = prefs.getString('user_id');
-            if (idUser != null) {
-              return const HomePage();
-            }
-          }
-          return const LoginPage();
-        },
-      ),
+      // home: FutureBuilder(
+      //   future: SharedPreferences.getInstance(),
+      //   builder: (context, snapshot) {
+      //     if (snapshot.hasData) {
+      //       final prefs = snapshot.data as SharedPreferences;
+      //       final idUser = prefs.getString('user_id');
+      //       if (idUser != null) {
+      //         return const HomePage();
+      //       }
+      //     }
+      //     return const LoginPage();
+      //   },
+      // ),
+      home: HomePage(),
     );
   }
 }
