@@ -152,12 +152,13 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
           const SizedBox(height: defaultPadding),
-          MyTextField(label: "Email", textController: emailController),
+          MyTextField(label: "Email", textController: emailController, textInputAction: TextInputAction.next,),
           const SizedBox(height: defaultPadding),
           MyTextField(
             label: password,
             isPassword: true,
             textController: passwordController,
+            textInputAction: TextInputAction.done,
           ),
           const SizedBox(height: 8.0),
           GestureDetector(
@@ -313,18 +314,21 @@ class _LoginPageState extends State<LoginPage> {
           MyTextField(
             label: "Email",
             textController: emailRegisterController,
+            textInputAction: TextInputAction.next,
           ),
           const SizedBox(height: defaultPadding),
           MyTextField(
             label: password,
             isPassword: true,
             textController: passwordRegisterController,
+            textInputAction: TextInputAction.next,
           ),
           const SizedBox(height: defaultPadding),
           MyTextField(
             label: confirmedPassword,
             isPassword: true,
             textController: confirmedPasswordController,
+            textInputAction: TextInputAction.done,
           ),
           const SizedBox(height: 32.0),
           MyButton(

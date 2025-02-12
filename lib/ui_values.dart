@@ -27,6 +27,9 @@ const ticketIcon = "assets/icons/ticket_icon.png";
 const ticketFilledIcon = "assets/icons/ticket_filled_icon.png";
 const profileIcon = "assets/icons/profile_icon.png";
 const profileFilledIcon = "assets/icons/profile_filled_icon.png";
+const locationIcon = "assets/icons/location_icon.png";
+const arrowDownIcon = "assets/icons/arrow_down.png";
+const hotFireIcon = "assets/icons/hot_icon.png";
 
 // color url
 const backgroundColor = Color(0xff181818);
@@ -37,13 +40,16 @@ const colorTextBox = Color(0xffF2F2F2);
 const grey46Color = Color(0xff464646);
 const grey5BColor = Color(0xff5B5B5B);
 const greyC5Color = Color(0xffC5C5C5);
+const whiteAAColor = Color(0xffAAAAAA);
+const hotPink = Color(0xffff1493);
 
 // figures
 const buttonRadius = BorderRadius.all(Radius.circular(10.0));
-const cardRadius = BorderRadius.all(Radius.circular(20.0));
+const cardRadius = BorderRadius.all(Radius.circular(16.0));
 const defaultPadding = 16.0;
 const defaultTextSize = 14.0;
 const defaultButtonHeight = 50.0;
+const defaultTitleSize = 16.0;
 
 // strings
 const loginTextUpper = "ĐĂNG NHẬP";
@@ -67,6 +73,10 @@ const confirm = "Xác nhận";
 const outstandingEventsText = "Sự Kiện Nổi Bật";
 const seeAllText = "Xem Tất Cả";
 const concertText = "Nhạc Hội";
+const searchText = "Tìm kiếm";
+const locationsText = "Địa Điểm";
+const recentText = "Gần đây";
+const youMayLikeText = "Có thể bạn sẽ thích";
 
 // fake data
 
@@ -131,4 +141,35 @@ List<Event> outstandingEventList = [
       "30.07.2025"
     ]
   ),
+];
+
+// location list
+List<String> locationList = [
+  "Toàn quốc",
+  "Hà Nội",
+  "Hồ Chí Minh",
+  "Đà Nẵng",
+  "Cần Thơ",
+  "Đà Lạt",
+  "Phan Thiết",
+  "Phú Quốc",
+];
+
+// search items
+List<String> searchHistoryList = [
+  "The Eras Tour",
+  "Fanmeeting NamtanFilm",
+  "The Weeknd Spotify"
+];
+
+// recommend events
+List<String> recommendEventList = [
+  "Concert Anh Trai Vượt Ngàn Chông Gai 2025",
+  "Hà Anh Tuấn Live Show Singapore",
+  "2NE1 Comeback Concert",
+  "Spotify Music Event",
+  "Faye Fanmeeting",
+  "The Aespa Live Show",
+  "Wechoice 2025",
+  "Pluto Fanmeeting",
 ];

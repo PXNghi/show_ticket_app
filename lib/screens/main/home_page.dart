@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:show_ticket_app/components/my_icon_button.dart';
 import 'package:show_ticket_app/components/my_nav_menu_icon.dart';
 import 'package:show_ticket_app/screens/login_page.dart';
+import 'package:show_ticket_app/screens/search_page.dart';
 import 'package:show_ticket_app/ui_values.dart';
 import 'package:show_ticket_app/widgets/event_home_item.dart';
 
@@ -36,12 +37,13 @@ class _HomePageState extends State<HomePage> {
           Padding(
             padding: const EdgeInsets.only(right: 16.0),
             child: MyIconButton(image: searchIcon, onTap: () async {
-              SharedPreferences prefs = await SharedPreferences.getInstance();
-              await prefs.clear();
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-              );
+              // SharedPreferences prefs = await SharedPreferences.getInstance();
+              // await prefs.clear();
+              // Navigator.pushReplacement(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const LoginPage()),
+              // );
+              Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SearchPage()));
 
             }),
           )
