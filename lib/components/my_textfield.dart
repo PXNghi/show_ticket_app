@@ -7,6 +7,7 @@ class MyTextField extends StatefulWidget {
   final String? mySuffixIcon;
   final VoidCallback? onTapSuffixIcon;
   final TextEditingController? textController;
+  final TextInputAction? textInputAction;
   const MyTextField({
     super.key,
     required this.label,
@@ -14,6 +15,7 @@ class MyTextField extends StatefulWidget {
     this.textController,
     this.mySuffixIcon,
     this.onTapSuffixIcon,
+    this.textInputAction = TextInputAction.done,
   });
 
   @override
@@ -38,6 +40,7 @@ class _MyTextFieldState extends State<MyTextField> {
         TextFormField(
           controller: widget.textController,
           obscureText: widget.isPassword && isPasswordHidden,
+          textInputAction: widget.textInputAction,
           decoration: InputDecoration(
             suffixIcon: widget.isPassword
                 ? Padding(
